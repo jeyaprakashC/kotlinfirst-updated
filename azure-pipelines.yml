@@ -22,7 +22,7 @@ steps:
     apksignerKeyPassword: 'qwerty'# Optional
     #apksignerArguments: '--verbose' # Optional
     #apksignerFile: # Optional
-    #zipalign: true # Optional
+    #zipalign: false # Optional
     #zipalignFile: # Optional
 - task: CopyFiles@2
   inputs:
