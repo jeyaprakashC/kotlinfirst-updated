@@ -41,7 +41,7 @@ steps:
   inputs:
     serverEndpoint: 'VSAP'
     appSlug: 'https://appcenter.ms/users/jeyaprakash.chinaraj/apps/kotlinfirst-updated'
-    appFile: '$(System.DefaultWorkingDirectory)/ kotlinfirst-updated'
+    appFile: '$(build.artifactStagingDirectory)'
     #symbolsOption: 'Apple' # Optional. Options: apple
     #symbolsPath: # Optional
     #symbolsPdbFiles: '**/*.pdb' # Optional
