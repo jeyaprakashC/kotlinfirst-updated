@@ -37,19 +37,9 @@ steps:
 
     # App Center Distribute
 # Distribute app builds to testers and users via App Center
-- task: AppCenterDistribute@1
-  inputs:
-    serverEndpoint: 'VSAP'
-    appSlug: '/jeyaprakash.chinaraj/new'
-    appFile: '$(build.artifactStagingDirectory)'
-    #symbolsOption: 'Apple' # Optional. Options: apple
-    #symbolsPath: # Optional
-    #symbolsPdbFiles: '**/*.pdb' # Optional
-    #symbolsDsymFiles: # Optional
-    #symbolsMappingTxtFile: # Optional
-    #symbolsIncludeParentDirectory: # Optional
-    #releaseNotesOption: 'input' # Options: input, file
-    releaseNotesInput: 'test upload'# Required when releaseNotesOption == Input
-    #releaseNotesFile: # Required when releaseNotesOption == File
-    #isMandatory: false # Optional
-    #distributionGroupId: # Optional
+
+-task: ms.hockeyapp.hockeyapp-task.HockeyApp@1
+displayname: 'deploy in hockey'
+inputs:
+connetedServiceName: 'hockey'
+binaryPath: '$(build.artifactStagingDirectory)'
