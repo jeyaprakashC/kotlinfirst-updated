@@ -40,7 +40,7 @@ steps:
 - task: AppCenterDistribute@1
   inputs:
     serverEndpoint: 'VSAP'
-    appSlug: '/jeyaprakashc/new'
+    appSlug: '/jeyaprakash.chinaraj/new'
     appFile: '$(build.artifactStagingDirectory)'
     #symbolsOption: 'Apple' # Optional. Options: apple
     #symbolsPath: # Optional
