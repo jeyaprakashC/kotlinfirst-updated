@@ -40,8 +40,8 @@ steps:
 - task: AppCenterDistribute@1
   inputs:
     serverEndpoint: 'VSAP'
-    appSlug: 'https://appcenter.ms/users/jeyaprakash.chinaraj/apps/kotlinfirst'
-    appFile: '$(System.DefaultWorkingDirectory)/ Kotlinfirst App/drop/app/build/outputs/apk/debug/app-debug.apk'
+    appSlug: 'https://appcenter.ms/users/jeyaprakash.chinaraj/apps/kotlinfirst-updated'
+    appFile: '$(System.DefaultWorkingDirectory)/ kotlinfirst-updated'
     #symbolsOption: 'Apple' # Optional. Options: apple
     #symbolsPath: # Optional
     #symbolsPdbFiles: '**/*.pdb' # Optional
