@@ -36,10 +36,3 @@ steps:
     artifactType: 'container'
 
     # App Center Distribute
-# Distribute app builds to testers and users via App Center
-
--task: ms.hockeyapp.hockeyapp-task.HockeyApp@1
-displayname: 'deploy in hockey'
-inputs:
-connetedServiceName: 'hockey'
-binaryPath: '$(build.artifactStagingDirectory)'
