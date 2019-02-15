@@ -34,3 +34,22 @@ steps:
     pathToPublish: '$(build.artifactStagingDirectory)'
     artifactName: 'drop'
     artifactType: 'container'
+
+    # App Center Distribute
+# Distribute app builds to testers and users via App Center
+- task: AppCenterDistribute@1
+  inputs:
+    serverEndpoint: 'VSAP'
+    appSlug: 'https://appcenter.ms/users/jeyaprakash.chinaraj/apps/kotlinfirst'
+    appFile: '$(System.DefaultWorkingDirectory)/ Kotlinfirst App/drop/app/build/outputs/apk/debug/app-debug.apk'
+    #symbolsOption: 'Apple' # Optional. Options: apple
+    #symbolsPath: # Optional
+    #symbolsPdbFiles: '**/*.pdb' # Optional
+    #symbolsDsymFiles: # Optional
+    #symbolsMappingTxtFile: # Optional
+    #symbolsIncludeParentDirectory: # Optional
+    #releaseNotesOption: 'input' # Options: input, file
+    #releaseNotesInput: # Required when releaseNotesOption == Input
+    #releaseNotesFile: # Required when releaseNotesOption == File
+    #isMandatory: false # Optional
+    #distributionGroupId: # Optional
