@@ -35,7 +35,7 @@ class UsersListFragment : BaseFragment() {
         val viewmodel = ViewModelProviders.of(activityObject, this.viewModeFactory).get(DashBoardViewModel::class.java)
         viewAdaptor = UsersListAdaptor()
 
-        viewmodel.getUsers().observe(this,
+        viewmodel.usersResult.observe(this,
             Observer<NetworkResult<List<Users>>> { t ->
                 if (t != null) {
                     when (t.status) {

@@ -141,4 +141,8 @@ class AppDataRepository @Inject constructor(val apiInterface: AppNetworkInterfac
         return this.apiInterface.getUsersData()
     }
 
+    fun getPhotosData(): Observable<List<Photos>> {
+        return this.apiInterface.getPhotosData()
+    }
+
 }

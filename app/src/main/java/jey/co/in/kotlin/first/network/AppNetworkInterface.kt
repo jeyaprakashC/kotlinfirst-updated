@@ -20,5 +20,7 @@ interface AppNetworkInterface {
     @GET("/users")
     fun getUsersData(): Observable<List<Users>>
 
+    @GET("/photos")
+    fun getPhotosData(): Observable<List<Photos>>
 
 }

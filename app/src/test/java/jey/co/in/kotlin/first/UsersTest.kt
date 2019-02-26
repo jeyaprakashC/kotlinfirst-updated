@@ -49,9 +49,8 @@ class UsersTest() : BaseTest() {
 
 
     @Test
-    fun getUsers() {
+    fun getUsersSuccess() {
         this.mockHttpResponse("response.json", HttpURLConnection.HTTP_OK)
-
 
         this.viewModel.getUsersList()
 
@@ -60,4 +59,18 @@ class UsersTest() : BaseTest() {
         assertEquals("Leanne Graham", user?.name, "User matched..")
 
     }
+
+
+    @Test
+    fun getUsersfailure() {
+        this.mockHttpResponse("response.json", HttpURLConnection.HTTP_BAD_GATEWAY)
+
+        this.viewModel.getUsersList()
+
+        val user: Users? = this.viewModel.usersResult.value?.data?.get(0)
+
+        assertEquals("Leanne Graham", user?.name, "User matched..")
+
+    }
+
 }

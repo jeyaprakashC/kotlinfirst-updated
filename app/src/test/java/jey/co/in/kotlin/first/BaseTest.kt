@@ -2,10 +2,8 @@ package jey.co.`in`.kotlin.first
 
 import android.util.Log
 import jey.co.`in`.kotlin.first.di.NetworkModule
-import okhttp3.HttpUrl
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
 import org.junit.Before
 import java.io.File
 import javax.inject.Inject
@@ -22,7 +20,7 @@ abstract class BaseTest {
     @Before
     open fun setUp() {
         this.configureMockServer()
-        configureDi()
+        configureDagger()
     }
 
     @AfterTest
@@ -35,7 +33,7 @@ abstract class BaseTest {
     abstract fun isMockServerEnabled(): Boolean
 
 
-    open fun configureDi() {
+    open fun configureDagger() {
 
         val url = mockServer.url("/").toString();
         this.testAppComponent =

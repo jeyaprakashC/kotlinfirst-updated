@@ -20,14 +20,14 @@ import javax.inject.Inject
 class DashBoardViewModel @Inject constructor(val repository: AppDataRepository) : ViewModel() {
 
 
-     var photosResult: MutableLiveData<NetworkResult<List<Photos>>>  = MutableLiveData()
-     var usersResult: MutableLiveData<NetworkResult<List<Users>>>  = MutableLiveData()
+    var photosResult: MutableLiveData<NetworkResult<List<Photos>>> = MutableLiveData()
+    var usersResult: MutableLiveData<NetworkResult<List<Users>>> = MutableLiveData()
 
     init {
 
 //        getPhotoResultFromRepository()
 //        getUsersFromRepository()
-
+        getphotosList()
         getUsersList()
     }
 
@@ -50,12 +50,43 @@ class DashBoardViewModel @Inject constructor(val repository: AppDataRepository) 
     }
 
 
+    fun getphotosList() {
+
+        val compositeDisposable = CompositeDisposable()
+
+        val disposable =
+            repository.getPhotosData().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(
+                    object : DisposableObserver<List<Photos>>() {
+                        override fun onComplete() {
+
+                            Log.d("getphotosList", "onComplete")
+
+                        }
+
+                        override fun onNext(t: List<Photos>) {
+
+                            Log.d("getphotosList", "onNext" + t?.size)
+
+                            photosResult.postValue(NetworkResult(Status.SUCCESS, t))
+
+                        }
+
+                        override fun onError(e: Throwable) {
+
+                            Log.d("getphotosList", "onError" + e.message)
+                        }
+                    })
+
+        compositeDisposable.add(disposable)
+    }
+
     fun getUsersList() {
 
         val compositeDisposable = CompositeDisposable()
 
         val disposable =
-            repository.getUsersData().subscribeOn(AndroidSchedulers.mainThread()).observeOn(AndroidSchedulers.mainThread())
+            repository.getUsersData().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                     object : DisposableObserver<List<Users>>() {
                         override fun onComplete() {
