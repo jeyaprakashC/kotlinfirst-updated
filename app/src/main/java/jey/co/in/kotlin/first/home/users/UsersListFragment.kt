@@ -14,10 +14,13 @@ import jey.co.`in`.kotlin.first.R
 import jey.co.`in`.kotlin.first.home.BaseFragment
 import jey.co.`in`.kotlin.first.home.DashBoardActivity
 import jey.co.`in`.kotlin.first.home.DashBoardViewModel
+import jey.co.`in`.kotlin.first.models.Photos
 import jey.co.`in`.kotlin.first.models.Users
+import jey.co.`in`.kotlin.first.network.NetworkResult
+import jey.co.`in`.kotlin.first.network.Status
 import kotlinx.android.synthetic.main.fragment_users_list.*
 
-class UsersListFragment : BaseFragment(), UserListClickListener {
+class UsersListFragment : BaseFragment() {
 
 
     lateinit var viewManager: RecyclerView.LayoutManager
@@ -29,16 +32,16 @@ class UsersListFragment : BaseFragment(), UserListClickListener {
         viewManager = LinearLayoutManager(activity)
         val activityObject = activity as DashBoardActivity
 
-        val viewmodel = ViewModelProviders.of(activityObject,this.viewModeFactory).get(DashBoardViewModel::class.java)
+        val viewmodel = ViewModelProviders.of(activityObject, this.viewModeFactory).get(DashBoardViewModel::class.java)
         viewAdaptor = UsersListAdaptor()
 
         viewmodel.getUsers().observe(this,
-            Observer<List<Users>> { t ->
+            Observer<NetworkResult<List<Users>>> { t ->
                 if (t != null) {
-                    Log.d("UsersListFragment", "users data changed ${t.size}")
-                    viewAdaptor.myDataLsit = t
-
-                    viewAdaptor.notifyDataSetChanged()
+                    when (t.status) {
+                        Status.SUCCESS -> setCollection(t.data)
+                        Status.ERROR -> showError()
+                    }
 
                 }
             })
@@ -68,7 +71,6 @@ class UsersListFragment : BaseFragment(), UserListClickListener {
 
                 if (child != null && e.action == MotionEvent.ACTION_DOWN) {
                     val position = rv.getChildAdapterPosition(child)
-                    onClick(position)
 
                 }
 
@@ -83,6 +85,14 @@ class UsersListFragment : BaseFragment(), UserListClickListener {
 
     }
 
+    fun setCollection(data: List<Users>?) {
+
+        if (data != null) {
+            viewAdaptor.myDataLsit = data
+            viewAdaptor.notifyDataSetChanged()
+        }
+    }
+
     companion object {
 
         fun newInstance(): UsersListFragment {
@@ -90,8 +100,5 @@ class UsersListFragment : BaseFragment(), UserListClickListener {
         }
     }
 
-    override fun onClick(position: Int) {
-        val containerActivity = activity as DashBoardActivity
-        containerActivity.showDetailsFragment(position)
-    }
+
 }

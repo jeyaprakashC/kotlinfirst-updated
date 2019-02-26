@@ -8,46 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentTransaction
-import jey.co.`in`.kotlin.first.AppDataRepository
-import jey.co.`in`.kotlin.first.AppViewModelFactory
 import jey.co.`in`.kotlin.first.R
-import jey.co.`in`.kotlin.first.di.AppContextModule
-import jey.co.`in`.kotlin.first.di.DaggerAppComponent
 import jey.co.`in`.kotlin.first.home.photos.PhotoListFragment
-import jey.co.`in`.kotlin.first.home.users.UserDetailsFragment
 import jey.co.`in`.kotlin.first.home.users.UsersListFragment
 import kotlinx.android.synthetic.main.activity_dash_board.*
-import javax.inject.Inject
 
 class DashBoardActivity : AppCompatActivity() {
 
 
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
 
-    @Inject
-    lateinit var repository: AppDataRepository
-
-
-    @Inject
-    lateinit var viewModeFactory: AppViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dash_board)
-
         setSupportActionBar(toolbar)
-
-        val daggerAppComponent = DaggerAppComponent.builder().appContextModule(AppContextModule(application)).build()
-
-        daggerAppComponent.inject(this)
         mSectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
-
         container.adapter = mSectionsPagerAdapter
-
-
-//        val viewmodel = ViewModelProviders.of(this,this.viewModeFactory).get(DashBoardViewModel::class.java)
-//        viewmodel.getPhotos()
-
-
     }
 
 
@@ -94,20 +70,6 @@ class DashBoardActivity : AppCompatActivity() {
         if (supportFragmentManager.backStackEntryCount == 0) {
             finish()
         }
-    }
-
-    fun showDetailsFragment(position: Int) {
-
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val detailsFragment = UserDetailsFragment()
-        val bundle: Bundle = Bundle()
-        bundle.putInt("position", position)
-        detailsFragment.arguments = bundle
-        fragmentTransaction.replace(R.id.container, detailsFragment)
-        fragmentTransaction.addToBackStack("details")
-        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-        fragmentTransaction.commit()
     }
 
 

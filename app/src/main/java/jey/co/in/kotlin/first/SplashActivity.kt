@@ -15,6 +15,7 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             val listIntent = Intent(this@SplashActivity, DashBoardActivity::class.java);
             startActivity(listIntent)
+            finish()
         }, 3000)
     }
 }

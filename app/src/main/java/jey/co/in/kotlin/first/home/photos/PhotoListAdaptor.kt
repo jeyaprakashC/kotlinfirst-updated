@@ -20,7 +20,6 @@ class PhotoListAdaptor() : RecyclerView.Adapter<PhotoListAdaptor.PhotoViewHolder
 
 
     fun setCollections(collections: List<Photos>) {
-
         if (collections != null)
             mCollection = collections
     }
@@ -28,7 +27,6 @@ class PhotoListAdaptor() : RecyclerView.Adapter<PhotoListAdaptor.PhotoViewHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         context = parent.context
-
         val view = LayoutInflater.from(context).inflate(R.layout.list_photos, parent, false)
         return PhotoViewHolder(view)
     }
